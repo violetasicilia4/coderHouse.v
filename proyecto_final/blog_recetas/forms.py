@@ -16,5 +16,15 @@ class Form_Receta(forms.Form):
     paso_a_paso = forms.CharField()
 
 
+class Form_Persona(forms.Form):
+
+    nombre = forms.CharField()
+    apellido = forms.CharField()
+    ciudad = forms.CharField()
+    provincia = forms.CharField()
+    pais = forms.CharField()
+    descripcion = forms.CharField()
+
+
     
     

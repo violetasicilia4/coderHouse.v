@@ -16,6 +16,22 @@ class Receta(models.Model):
     paso_a_paso = models.CharField(max_length=500, default="Descripcion de la receta")
 
     def __str__(self):
-        return f"Nombre de la receta: {self.nombre_receta}\nIngredientes:\n{self.ingrediente_1}: {self.cantidad_ingr_1}\n{self.ingrediente_2}: {self.cantidad_ingr_2}\n{self.ingrediente_3}: {self.cantidad_ingr_3}\nDescripcion de la receta:\n{self.paso_a_paso}"
+        return f"Nombre de la receta: {self.nombre_receta}"
+
+
+
+class Persona(models.Model):
+
+    nombre = models.CharField(max_length = 50)
+    apellido = models.CharField(max_length = 50)
+    ciudad = models.CharField(max_length = 50)
+    provincia = models.CharField(max_length = 50)
+    pais = models.CharField(max_length = 50)
+    descripcion = models.CharField(max_length = 300)
+    def __str__(self):
+        return f"Nombre: {self.nombre} {self.apellido}"
+
+
+
 # Create your models here.
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .forms import Form_Receta
-from .models import Receta
+from .forms import Form_Receta, Form_Persona
+from .models import Receta, Persona
 from django.views.generic import ListView
 
 
@@ -33,6 +33,27 @@ def receta(request):
         
     return render(request, "form_ingredientes.html", {"miFormulario": miFormulario})
 
+def persona(request):
+ 
+    if request.method == "POST":
+
+        form_persona = Form_Persona(request.POST) # Aqui me llega la informacion del html
+        print(form_persona)
+
+        if form_persona.is_valid:
+            informacion = form_persona.cleaned_data
+            persona = Persona(nombre=informacion["nombre"], apellido=informacion["apellido"], ciudad = informacion["ciudad"], provincia=informacion["provincia"], pais = informacion["pais"], descripcion=informacion["descripcion"])
+            persona.save()
+            return render(request, "inicio.html")
+    else:
+        form_persona = Form_Persona()
+        
+    return render(request, "form_persona.html", {"form_persona": form_persona})
+
 class Receta_LV(ListView):
     model= Receta
+    template_name= "ver_receta.html"
+
+class Persona_LV(ListView):
+    model= Persona
     template_name= "ver_perfil.html"
