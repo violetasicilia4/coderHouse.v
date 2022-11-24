@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .forms import Form_Receta
 from .models import Receta
+from django.views.generic import ListView
 
 
 def home(request):
@@ -24,10 +25,14 @@ def receta(request):
 
         if miFormulario.is_valid:
             informacion = miFormulario.cleaned_data
-            receta = Receta(nombre_receta=informacion["nombre_receta"], ingrediente_1=informacion["ingrediente_1"], cantidad_ingr_1 = informacion["cantidad_ingrediente_1"], ingrediente_2=informacion["ingrediente_2"], cantidad_ingr_2 = informacion["cantidad_ingrediente_2"], ingrediente_3=informacion["ingrediente_3"], cantidad_ingr_3 = informacion["cantidad_ingrediente_3"])
+            receta = Receta(nombre_receta=informacion["nombre_receta"], ingrediente_1=informacion["ingrediente_1"], cantidad_ingr_1 = informacion["cantidad_ingrediente_1"], ingrediente_2=informacion["ingrediente_2"], cantidad_ingr_2 = informacion["cantidad_ingrediente_2"], ingrediente_3=informacion["ingrediente_3"], cantidad_ingr_3 = informacion["cantidad_ingrediente_3"], paso_a_paso = informacion["paso_a_paso"])
             receta.save()
             return render(request, "inicio.html")
     else:
         miFormulario = Form_Receta()
         
     return render(request, "form_ingredientes.html", {"miFormulario": miFormulario})
+
+class Receta_LV(ListView):
+    model= Receta
+    template_name= "ver_perfil.html"
