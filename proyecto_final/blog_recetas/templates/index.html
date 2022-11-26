@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.104.2">
-    <title>Album example · Bootstrap v5.2</title>
+    <title>Ricocina</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/album/">
 
@@ -79,83 +79,118 @@
   </head>
   <body>
     
-<header>
-  <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color:#E6B389 ;">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Ricocina</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mb-2 mb-md-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'Home' %}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'Receta' %}">Receta</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'Perfil' %}">Perfil</a>
-          </li>
-        </ul>
-
-        <form class="d-flex" role="search" style="margin-left:90px;">
-
-          <select class="form-control" name="Tipo" style="width: 110px; margin-right: 10px;">
-            <option value="receta">Receta</option>
-            <option value="autor">Autor</option>
-            <option value="ingrediente">Ingrediente</option>
-          </select>
-
-          <input class="form-control" type="search" placeholder="Buscar" aria-label="Search" style="width: 500px ;margin-right: 20px;">
-          <button class="btn btn-outline-secondary" type="submit">Buscar</button>
-        </form>
-        <button class="btn btn-outline-secondary" type="submit" style="margin-right: 10px;margin-left: 160px;">Iniciar Sesión</button>
-        <button class="btn btn-outline-secondary" type="submit">Registrarse</button>
-
-      </div>
-    </div>
-  </nav>
-
-</header>
-
-<main style="background-color:#F0E9BA">
-
-  <section class="py-5 text-center container" >
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <br>
-        <br>
-        <h1 class="fw-light">Ricocina</h1>
-        <br>
-        <p class="lead text-muted">
-          El lugar donde vas a encontrar las recetas mas ricas en tan solo 5 minutos  
-        </p>
- 
-      </div>
-    </div>
-  </section>
-
-
-  {% block bloque1 %}
-    
-  {% endblock bloque1 %}
-  
-</main>
-
-<footer class="text-muted py-5" style="background-color:#F0E9BA">
-  <div class="container">
-    <p class="float-end mb-1">
-      <a href="#">Back to top</a>
-    </p>
-    <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-    <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
-  </div>
-</footer>
-
-
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
       
+  <header>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  
+    <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color:#E6B389 ;">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'Home' %}">Ricocina</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="{% url 'Home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'Receta' %}">Receta</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'Perfil' %}">Perfil</a>
+            </li>
+          </ul>
+          
+          <form class="d-flex" role="search" style="margin-left:90px;">
+            
+
+            <select class="form-control" name="Tipo" style="width: 110px; margin-right: 10px;">
+              <option value="receta">Receta</option>
+              <option value="autor">Autor</option>
+              <option value="ingrediente">Ingrediente</option>
+            </select>
+
+            <input class="form-control" type="search" placeholder="Buscar" aria-label="Search" style="width: 500px ;margin-right: 20px;">
+            <a class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Buscar</a>
+                   
+            
+          {% if user.is_authenticated %}
+          
+            <a class="btn btn-outline-secondary" type="submit" style="margin-right: 10px;margin-left: 220px;" href="{% url 'Logout' %}">Cerrar Sesión</a>
+
+            
+          {% else %}
+
+            <a class="btn btn-outline-secondary" type="submit" style="margin-right: 10px;margin-left: 110px;" href="{% url 'Login' %}">Iniciar Sesión</a>
+            <a class="btn btn-outline-secondary" type="submit" href="{% url 'Register' %}">Registrarse</a>
+          
+          {% endif %}
+            
+
+
+        </div>
+      </div>
+    </nav>
+
+  </header>
+
+  <main style="background-color:#F0E9BA">
+
+    <section class="py-5 text-center container" >
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <br>
+          <br>
+          <h1 class="fw-light">Ricocina</h1>
+          <br>
+          <p class="lead text-muted">
+            El lugar donde vas a encontrar las recetas mas ricas en tan solo 5 minutos  
+          </p>
+  
+        </div>
+      </div>
+    </section>
+
+
+    {% block bloque1 %}
+      
+    {% endblock bloque1 %}
+    
+  </main>
+
+  <footer class="text-muted py-5" style="background-color:#F0E9BA">
+    <div class="container">
+      <p class="float-end mb-1">
+        <a href="#">Back to top</a>
+      </p>
+      <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+      <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
+    </div>
+  </footer>
+
+
+      <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </form>   
   </body>
 </html>
