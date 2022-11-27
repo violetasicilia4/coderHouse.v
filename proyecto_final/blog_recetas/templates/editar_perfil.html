@@ -1,0 +1,39 @@
+{% extends "index.html" %}
+
+{% load static %}
+
+{% block bloque1 %}
+
+    <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
+    <h1>Formulario - Editar Perfil</h1>
+    <br>
+    <h6>Usuario: {{usuario}}</h6>
+    <br>
+
+    
+
+    <form action="" method="POST">{% csrf_token %}
+
+        <!-- Acá está la magia de Django-->
+        
+        <table>
+
+            {{ user_editForm.as_table }}
+
+        </table>
+
+    
+        <br>
+        <input type="submit", value="Enviar">
+
+        <br>
+        <br>
+        <p style="color:green;">{{mensaje1}}</p>
+        <p style="color:red;">{{mensaje2}}</p>
+
+        
+
+    </form>  
+   
+
+{% endblock bloque1 %}

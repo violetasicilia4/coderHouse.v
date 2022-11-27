@@ -4,13 +4,13 @@
 
 {% block bloque1 %}
 
-    <div class="album py-5" style="background-color:#ffffff"> 
-        <form  action="" method="POST" style="margin-left:50px;">{% csrf_token %}
 
-            {{form_register.as_p}}
+    <form  action="" method="POST">{% csrf_token %}
 
-            <button type = "submit">Registrarse</button>
-        </form> 
-    </div>
+        {{form_register.as_p}}
+
+        <button type = "submit">Registrarse</button>
+    </form> 
+
     
 {% endblock bloque1 %}

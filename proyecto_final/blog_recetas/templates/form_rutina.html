@@ -4,14 +4,15 @@
 
 {% block bloque1 %}
 
-
-    {% if form_persona.errors %}
+ 
+    {% if miFormulario.errors %}
         <p style="color:red"> Estan mal los datos, revisar</p>
     {% endif %}
     <form  action="" method="POST">{% csrf_token %}
 
-        {{form_persona.as_p}}
+        {{miFormulario.as_p}}
         <input type = "submit", value = "Enviar">   
     </form> 
 
+    
 {% endblock bloque1 %}

@@ -4,25 +4,25 @@
 
 {% block bloque1 %}
 
-    <div class="album py-5" style="background-color:#ffffff"> 
-        <div style="margin-left: 50px;">
 
-            {% for persona in object_list %}          
-                    
-                Nombre: {{persona.nombre}} {{persona.apellido}}
-                <br>
-                Ciudad: {{persona.ciudad}}
-                <br>
-                Provincia: {{persona.provincia}}
-                <br>
-                Pais: {{persona.pais}}
-                <br>
-                Descripción: {{persona.descripcion}}
+    <div>
+
+        {% for persona in object_list %}          
                 
-            {% endfor %}
+            Nombre: {{persona.nombre}} {{persona.apellido}}
+            <br>
+            Ciudad: {{persona.ciudad}}
+            <br>
+            Provincia: {{persona.provincia}}
+            <br>
+            Pais: {{persona.pais}}
+            <br>
+            Descripción: {{persona.descripcion}}
+            
+        {% endfor %}
 
-        </div>
     </div>
+
         
     
 {% endblock bloque1 %}

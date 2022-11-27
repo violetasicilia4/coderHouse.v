@@ -4,15 +4,15 @@
 
 {% block bloque1 %}
 
-    <div class="album py-5" style="background-color:#ffffff"> 
-        {% if formulario_persona.errors %}
-            <p style="color:red"> Estan mal los datos, revisar</p>
-        {% endif %}
-        <form  action="" method="POST" style="margin-left:50px;">{% csrf_token %}
+    
+    {% if formulario_persona.errors %}
+        <p style="color:red"> Estan mal los datos, revisar</p>
+    {% endif %}
+    <form  action="" method="POST">{% csrf_token %}
 
-            {{formulario_persona.as_p}}
-            <input type = "submit", value = "Enviar">   
-        </form> 
-    </div>
+        {{formulario_persona.as_p}}
+        <input type = "submit", value = "Enviar">   
+    </form> 
+    
     
 {% endblock bloque1 %}

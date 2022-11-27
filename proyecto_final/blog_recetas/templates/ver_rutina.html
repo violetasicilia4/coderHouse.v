@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+
+{% load static %}
+
+{% block bloque1 %}
+
+
+    <div>
+
+        {% for receta in object_list %}          
+                
+            Nombre de la receta: {{receta.nombre_receta}}
+            <br>
+            Ingredientes:
+            <ul>{{receta.ingrediente_1}} {{receta.cantidad_ingr_1}}</ul>
+            <ul>{{receta.ingrediente_2}} {{receta.cantidad_ingr_2}}</ul>
+            <ul>{{receta.ingrediente_3}} {{receta.cantidad_ingr_3}}</ul>
+            Descripción de la receta:
+            <ul>{{receta.paso_a_paso}}</ul>
+            
+        {% endfor %}
+
+    </div>
+
+        
+    
+{% endblock bloque1 %}

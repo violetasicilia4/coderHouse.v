@@ -1,49 +1,57 @@
 from django.shortcuts import render
-from .forms import Form_Receta, Form_Persona
-from .models import Receta, Persona
+from .forms import Form_Ejercicio, Form_Persona
+from .models import Ejercicio, Persona
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
+from .forms import UserEditForm
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
 
     return render(request, "inicio.html")
 
+def about(request):
+
+    return render(request, "about.html")
+
 def ejemplo_blog(request):
 
     return render(request, "nav_bar.html")
-
-# Create your views here.
-
-
  
-def receta(request):
+def ejercicio(request):
+    
+    print('method:', request.method)
+    print('post: ', request.POST)
  
     if request.method == "POST":
 
-        miFormulario = Form_Receta(request.POST) # Aqui me llega la informacion del html
+        miFormulario = Form_Ejercicio(request.POST) # Aqui me llega la informacion del html
         print(miFormulario)
 
-        if miFormulario.is_valid:
+        if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
-            receta = Receta(nombre_receta=informacion["nombre_receta"], ingrediente_1=informacion["ingrediente_1"], cantidad_ingr_1 = informacion["cantidad_ingrediente_1"], ingrediente_2=informacion["ingrediente_2"], cantidad_ingr_2 = informacion["cantidad_ingrediente_2"], ingrediente_3=informacion["ingrediente_3"], cantidad_ingr_3 = informacion["cantidad_ingrediente_3"], paso_a_paso = informacion["paso_a_paso"])
-            receta.save()
+            ejercicio = Ejercicio(nombre_ejercicio=informacion["nombre_ejercicio"], paso_a_paso = informacion["paso_a_paso"])
+            ejercicio.save()
             return render(request, "inicio.html")
     else:
-        miFormulario = Form_Receta()
+        miFormulario = Form_Ejercicio()
         
-    return render(request, "form_ingredientes.html", {"miFormulario": miFormulario})
+    return render(request, "form_rutina.html", {"miFormulario": miFormulario})
 
 def persona(request):
- 
+    
+    print('method:', request.method)
+    print('post: ', request.POST)
+
     if request.method == "POST":
 
         form_persona = Form_Persona(request.POST) # Aqui me llega la informacion del html
         print(form_persona)
 
-        if form_persona.is_valid:
+        if form_persona.is_valid():
             informacion = form_persona.cleaned_data
             persona = Persona(nombre=informacion["nombre"], apellido=informacion["apellido"], ciudad = informacion["ciudad"], provincia=informacion["provincia"], pais = informacion["pais"], descripcion=informacion["descripcion"])
             persona.save()
@@ -53,15 +61,15 @@ def persona(request):
         
     return render(request, "form_persona.html", {"form_persona": form_persona})
 
-"""CLASES PARA RECETAS"""
+"""CLASES PARA EJERCICIO"""
 
-class Receta_LV(ListView):
-    model= Receta
-    template_name= "ver_receta.html"
+class Ejercicio_LV(ListView):
+    model= Ejercicio
+    template_name= "ver_rutina.html"
 
-class Receta_DV(DetailView):
-    model= Receta
-    template_name= "ver_receta_detalle.html"
+class Ejercicio_DV(DetailView):
+    model= Ejercicio
+    template_name= "ver_rutina_detalle.html"
 
 """CLASES PARA PERSONAS"""
 class Persona_LV(ListView):
@@ -72,6 +80,9 @@ class Persona_LV(ListView):
 """Login"""
 
 def loginView(request):
+    
+    print('method:', request.method)
+    print('post: ', request.POST)
 
     if request.method == 'POST':
         form_login = AuthenticationForm(request, data = request.POST)
@@ -127,3 +138,37 @@ def registerView(request):
 def modals_prueba(request):
 
     return render(request, "modal.html")
+
+
+
+# Vista de editar el perfil
+@login_required
+def editarPerfil(request):
+
+    usuario = request.user
+
+    if request.method == 'POST':
+
+        user_editForm = UserEditForm(request.POST)
+
+        if user_editForm.is_valid():
+
+            informacion = user_editForm.cleaned_data
+
+            usuario.email = informacion['email']
+            usuario.first_name = informacion['first_name']
+            usuario.last_name = informacion['last_name']
+    
+
+            usuario.save()
+
+            return render(request, "editar_perfil.html", {"user_editForm": user_editForm, "usuario": usuario,"mensaje1" : f"Datos actualizados correctamente"})
+
+        else:
+            
+            return render(request, "editar_perfil.html", {"user_editForm": user_editForm, "usuario": usuario,"mensaje2":f"Error al modificar el usuario"})
+    else:
+
+        user_editForm = UserEditForm(instance=request.user)
+
+        return render(request, "editar_perfil.html", {"user_editForm": user_editForm, "usuario": usuario})

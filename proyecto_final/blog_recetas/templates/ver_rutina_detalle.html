@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+
+{% load static %}
+
+{% block bloque1 %}
+
+
+    <div>
+
+        <p>Nombre del ejercicio: <i>{{ejercicio.nombre_ejercicio}}</i></p>
+        <p>Ingredientes:</p>
+        <p>Descripcion del ejercicio:</p>
+        <ul><i>{{ejercicio.paso_a_paso}}</i></ul>
+
+        <p>
+            <a href="{% url 'Ejercicio' %}">Regresar</a>
+        </p>
+
+    </div>
+
+        
+    
+{% endblock bloque1 %}
+
