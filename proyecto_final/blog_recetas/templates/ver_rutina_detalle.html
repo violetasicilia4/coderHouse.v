@@ -7,16 +7,19 @@
 
     <div>
 
-        <p>Nombre del ejercicio: <i>{{ejercicio.nombre_ejercicio}}</i></p>
-        <p>Ingredientes:</p>
-        <p>Descripcion del ejercicio:</p>
-        <ul><i>{{ejercicio.paso_a_paso}}</i></ul>
+        <p>Nombre del ejercicio: {{ejercicio.nombre_ejercicio}}</p>
+        <p>Grupo muscular: {{ejercicio.grupo_muscular}}</p>
+        <p>Descripcion del ejercicio: {{ejercicio.paso_a_paso}}</p>
+        
 
         <p>
-            <a href="{% url 'Ejercicio' %}">Regresar</a>
+            <a href="{% url 'Ver_ejercicio' %}">Regresar</a>
         </p>
 
     </div>
+
+
+    
 
         
     

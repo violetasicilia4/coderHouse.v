@@ -4,24 +4,30 @@
 
 {% block bloque1 %}
 
+    <div class="table-responsive">
+        <h3>Listado de ejercicios</h3>
+        <table class="table table-striped table-sm">
+            {% for ejercicio in object_list %}   
+                <tr> 
+                    <td>
+                        <a href="{% url 'Ver_ejercicio_detalle' ejercicio.id %}">
+                            {{ejercicio.nombre_ejercicio}}
+                        </a>
+                    </td>
 
-    <div>
-
-        {% for receta in object_list %}          
-                
-            Nombre de la receta: {{receta.nombre_receta}}
-            <br>
-            Ingredientes:
-            <ul>{{receta.ingrediente_1}} {{receta.cantidad_ingr_1}}</ul>
-            <ul>{{receta.ingrediente_2}} {{receta.cantidad_ingr_2}}</ul>
-            <ul>{{receta.ingrediente_3}} {{receta.cantidad_ingr_3}}</ul>
-            Descripción de la receta:
-            <ul>{{receta.paso_a_paso}}</ul>
-            
-        {% endfor %}
-
-    </div>
-
+                    
+                    {% if user.is_staff %}
+                        <td>
+                            <a class="btn btn-outline-secondary" href="{% url 'Actualizar_ejercicio' ejercicio.id %}" style="margin-left: 5px ;margin-right: 5px">Editar</a>
+                            <a class="btn btn-outline-secondary" href="{% url 'Eliminar_ejercicio' ejercicio.id %}" style="margin-left: 5px">Eliminar</a>
+                        </td> 
+                    {% endif %}
+                        
+                       
+                </tr>
+            {% endfor %}
+        </table>
+    </div>    
         
-    
+
 {% endblock bloque1 %}

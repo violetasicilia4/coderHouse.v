@@ -3,10 +3,16 @@ from .forms import Form_Ejercicio, Form_Persona
 from .models import Ejercicio, Persona
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import DeleteView, UpdateView, CreateView
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from .forms import UserEditForm
 from django.contrib.auth.decorators import login_required
+
+def modals_prueba(request):
+
+    return render(request, "dashboard.html")
+
 
 
 def home(request):
@@ -16,6 +22,14 @@ def home(request):
 def about(request):
 
     return render(request, "about.html")
+
+def nosotros(request):
+
+    return render(request, "nosotros.html")
+
+def contacto(request):
+
+    return render(request, "contacto.html")
 
 def ejemplo_blog(request):
 
@@ -33,9 +47,9 @@ def ejercicio(request):
 
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
-            ejercicio = Ejercicio(nombre_ejercicio=informacion["nombre_ejercicio"], paso_a_paso = informacion["paso_a_paso"])
+            ejercicio = Ejercicio(nombre_ejercicio=informacion["nombre_ejercicio"],grupo_muscular=informacion["grupo_muscular"], paso_a_paso = informacion["paso_a_paso"])
             ejercicio.save()
-            return render(request, "inicio.html")
+            return render(request, "form_rutina.html",{"miFormulario": miFormulario,"mensaje":"Ejercicio guardado con éxito"})
     else:
         miFormulario = Form_Ejercicio()
         
@@ -70,6 +84,26 @@ class Ejercicio_LV(ListView):
 class Ejercicio_DV(DetailView):
     model= Ejercicio
     template_name= "ver_rutina_detalle.html"
+
+class Ejercicio_Create(CreateView):
+
+    model = Ejercicio
+    template_name = 'crear_rutina.html'
+    fields = ['nombre_ejercicio','grupo_muscular','paso_a_paso']
+    success_url = '/modificar-nombre/ver-ejercicio/'
+
+class Ejercicio_Actualizar(UpdateView):
+
+    model = Ejercicio
+    template_name = 'actualizar_rutina.html'
+    fields = ('__all__')
+    success_url = '/modificar-nombre/ver-ejercicio/'
+
+class Ejercicio_Eliminar(DeleteView):
+
+    model = Ejercicio
+    template_name = 'eliminar_rutina.html'
+    success_url = '/modificar-nombre/ver-ejercicio/'
 
 """CLASES PARA PERSONAS"""
 class Persona_LV(ListView):
@@ -135,9 +169,6 @@ def registerView(request):
         return render(request, "register.html", {"form_register": form_register})  
 
 
-def modals_prueba(request):
-
-    return render(request, "modal.html")
 
 
 
@@ -158,6 +189,7 @@ def editarPerfil(request):
             usuario.email = informacion['email']
             usuario.first_name = informacion['first_name']
             usuario.last_name = informacion['last_name']
+            usuario.set_password(informacion['password1'])
     
 
             usuario.save()
@@ -166,7 +198,7 @@ def editarPerfil(request):
 
         else:
             
-            return render(request, "editar_perfil.html", {"user_editForm": user_editForm, "usuario": usuario,"mensaje2":f"Error al modificar el usuario"})
+            return render(request, "editar_perfil.html", {"user_editForm": user_editForm, "usuario": usuario})
     else:
 
         user_editForm = UserEditForm(instance=request.user)

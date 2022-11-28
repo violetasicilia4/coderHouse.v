@@ -2,9 +2,9 @@ from django.db import models
 
 
 class Ejercicio(models.Model):
-    nombre_ejercicio = models.CharField(max_length=50)
-
-    paso_a_paso = models.CharField(max_length=500, default="Descripcion del ejercicio")
+    nombre_ejercicio = models.CharField(max_length=200)
+    grupo_muscular = models.CharField(max_length=50)
+    paso_a_paso = models.CharField(max_length=500)
 
     def __str__(self):
         return f"Nombre del ejercicio: {self.nombre_ejercicio}"
