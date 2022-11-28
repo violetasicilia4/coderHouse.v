@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 
 def modals_prueba(request):
 
-    return render(request, "dashboard.html")
+    return render(request, "footers.html")
 
 
 
