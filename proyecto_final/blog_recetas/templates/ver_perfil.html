@@ -4,25 +4,29 @@
 
 {% block bloque1 %}
 
+    <div class="table-responsive">
+        <h3>Listado de ejercicios</h3>
+        <table class="table table-striped table-sm">
+            {% for persona in object_list %}   
+                <tr> 
+                    <td>
+                        <a href="{% url 'Ver_persona_detalle' persona.id %}">
+                            Nombre: {{persona.nombre}} {{persona.apellido}}
+                        </a>
+                    </td>
 
-    <div>
-
-        {% for persona in object_list %}          
-                
-            Nombre: {{persona.nombre}} {{persona.apellido}}
-            <br>
-            Ciudad: {{persona.ciudad}}
-            <br>
-            Provincia: {{persona.provincia}}
-            <br>
-            Pais: {{persona.pais}}
-            <br>
-            Descripción: {{persona.descripcion}}
-            
-        {% endfor %}
-
-    </div>
-
+                    
+                    {% if user.is_staff %}
+                        <td>
+                            <a class="btn btn-outline-secondary" href="{% url 'Eliminar_consulta' persona.id %}" style="margin-left: 5px">Eliminar</a>
+                        </td> 
+                    {% endif %}
+                        
+                       
+                </tr>
+            {% endfor %}
+        </table>
+    </div>    
         
-    
+
 {% endblock bloque1 %}

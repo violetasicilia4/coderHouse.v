@@ -8,16 +8,38 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from .forms import UserEditForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 def modals_prueba(request):
 
     return render(request, "footers.html")
 
+def buscar(request):
+ 
+    if request.GET["nombre_ejercicio"]:
+
+        nombre_ejercicio = request.GET["nombre_ejercicio"]
+
+        ejercicios = Ejercicio.objects.filter(nombre_ejercicio__icontains=nombre_ejercicio)
+        
+        print(nombre_ejercicio,ejercicios)
+
+        return render(request, "buscar.html", {"ejercicios": ejercicios, "nombre_ejercicio": nombre_ejercicio})
+
+    """if request.GET["grupo_muscular"]:
+
+        grupo_muscular = request.GET["grupo_muscular"]
+
+        nombre_ejercicios = Ejercicio.objects.filter(grupo_muscular__icontains=grupo_muscular)
+        
+
+        return render(request, "buscar.html", {"nombre_ejercicios": nombre_ejercicios, "grupo_muscular": grupo_muscular})"""
+
 
 
 def home(request):
 
-    return render(request, "inicio.html")
+    return render(request, "home.html")
 
 def about(request):
 
@@ -91,6 +113,7 @@ class Ejercicio_Create(CreateView):
     template_name = 'crear_rutina.html'
     fields = ['nombre_ejercicio','grupo_muscular','paso_a_paso']
     success_url = '/modificar-nombre/ver-ejercicio/'
+    
 
 class Ejercicio_Actualizar(UpdateView):
 
@@ -110,6 +133,22 @@ class Persona_LV(ListView):
     model= Persona
     template_name= "ver_perfil.html"
 
+class Persona_DV(DetailView):
+    model= Persona
+    template_name= "ver_perfil_detalle.html"
+
+class Persona_Create(CreateView):
+
+    model = Persona
+    template_name = 'consulta.html'
+    fields = ['nombre','apellido','edad','sexo','dni','telefono','descripcion']
+    success_url = '/modificar-nombre/home'
+
+class Persona_Eliminar(DeleteView):
+
+    model = Persona
+    template_name = 'eliminar_consulta.html'
+    success_url = '/modificar-nombre/ver-perfil/'
 
 """Login"""
 

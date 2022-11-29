@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+
+{% load static %}
+
+{% block bloque1 %}
+
+    <form method="POST">{% csrf_token %}
+
+        <p>¿Desea eliminar esta consulta?</p>
+
+        <button type = "submit">Confirmar</button> 
+        <a href='{% url "Ver_perfil" %}'>Cancelar</a> 
+
+    </form>
+    
+    
+{% endblock bloque1 %}

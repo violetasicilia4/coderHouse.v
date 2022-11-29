@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+
+{% block bloque1 %}
+
+    <p>Resultado de la busqueda <u>{{nombre_ejercicio}}</u></p>
+
+    {% if ejercicios %}
+
+        <ul>
+
+            {% for ejercicio in ejercicios %}
+                <li>
+                    <a href="{% url 'Ver_ejercicio_detalle' ejercicio.id %}">
+                        {{ejercicio.nombre_ejercicio}}
+                    </a>
+                </li>
+            {% endfor %}
+                
+        </ul>
+
+    {% else %}
+
+        <p>No hubo coincidencias!</p>
+        
+    {% endif %}
+        
+
+{% endblock bloque1 %}

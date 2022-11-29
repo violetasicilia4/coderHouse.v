@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+
+{% load static %}
+
+{% block bloque1 %}
+
+    <form  action="{% url 'Consulta' %}" method="POST">{% csrf_token %}
+
+        {{form.as_p}}
+
+        <input type = "submit", value = "Enviar">   
+    </form>
+    
+    
+{% endblock bloque1 %}

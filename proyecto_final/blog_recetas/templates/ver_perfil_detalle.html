@@ -1,0 +1,38 @@
+{% extends "index.html" %}
+
+{% load static %}
+
+{% block bloque1 %}
+
+
+    <div>
+
+        
+            
+            Nombre: {{persona.nombre}} {{persona.apellido}}
+            <br>
+            Edad: {{persona.edad}}
+            <br>
+            Sexo: {{persona.sexo}}
+            <br>
+            Dni: {{persona.dni}}
+            <br>
+            Telefono: {{persona.telefono}}
+            <br>
+            Consulta: {{persona.descripcion}}
+            <br>
+            
+
+
+        <p>
+            <a href="{% url 'Ver_perfil' %}">Ir a listado de consultas</a>
+        </p>
+
+
+    </div>
+
+        
+    
+{% endblock bloque1 %}
+
+

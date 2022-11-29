@@ -17,10 +17,9 @@ class Persona(models.Model):
     apellido = models.CharField(max_length = 50)
     edad = models.IntegerField()
     sexo = models.CharField(max_length = 50)
-    ciudad = models.CharField(max_length = 50)
-    provincia = models.CharField(max_length = 50)
-    pais = models.CharField(max_length = 50)
-    descripcion = models.CharField(max_length = 300)
+    dni = models.IntegerField()
+    telefono = models.IntegerField()
+    descripcion = models.CharField(max_length = 500)
     
 
 
